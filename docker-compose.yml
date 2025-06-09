@@ -1,0 +1,64 @@
+version: '3.8'
+services:
+  # ==== Master ====
+  mysql-master:
+    image: mysql:8.0
+    container_name: mysql-master
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpwd
+    command: >
+      --server-id=1
+      --log-bin=mysql-bin
+      --binlog-format=ROW
+      --gtid-mode=ON
+      --enforce-gtid-consistency
+    ports:
+      - "33061:3306"
+
+  # ==== Slave 1 ====
+  mysql-slave1:
+    image: mysql:8.0
+    container_name: mysql-slave1
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpwd
+    command: >
+      --server-id=2
+      --relay-log=relay-bin
+      --log-bin=mysql-bin
+      --binlog-format=ROW
+      --gtid-mode=ON
+      --enforce-gtid-consistency
+    ports:
+      - "33062:3306"
+
+  # ==== Slave 2 ====
+  mysql-slave2:
+    image: mysql:8.0
+    container_name: mysql-slave2
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpwd
+    command: >
+      --server-id=3
+      --relay-log=relay-bin
+      --log-bin=mysql-bin
+      --binlog-format=ROW
+      --gtid-mode=ON
+      --enforce-gtid-consistency
+    ports:
+      - "33063:3306"
+
+  # ==== Slave 3 ====
+  mysql-slave3:
+    image: mysql:8.0
+    container_name: mysql-slave3
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpwd
+    command: >
+      --server-id=4
+      --relay-log=relay-bin
+      --log-bin=mysql-bin
+      --binlog-format=ROW
+      --gtid-mode=ON
+      --enforce-gtid-consistency
+    ports:
+      - "33064:3306"
